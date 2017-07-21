@@ -61,6 +61,7 @@ var game = {
   },
 
   showTimer: function(){
+	  createTimer();
   	$("#timer").css("display", "block");
   },
 
@@ -116,8 +117,10 @@ $(".answer").click(function(){
 var time = 30;
 
 function createTimer(){
-	setTimeout(function(){time--}, 1000);
-	$("#timer-count").html(time);
+	setTimeout(function(){
+		time--;
+		$("#timer-count").html(time);
+		createTimer();
+	}, 1000);
 }
 
-createTimer();
