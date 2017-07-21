@@ -39,6 +39,10 @@ var game = {
 
   x: 0,
 
+  correct: 0,
+
+  wrong: 0,
+
   //something that populates the html with the question
   askQuestions: function(){
     var questionInPlay = this.questions[this.x].questionText;
@@ -53,7 +57,30 @@ var game = {
     for (i = 0; i < answerArray.length; i++){
       $("#answer"+i).html(answerArray[i]);
     }
-    $(".radio").css("display", "block");
+    $(".answer").css("background-color", "inherit");
+  },
+
+  showTimer: function(){
+  	$("#timer").css("display", "block");
+  },
+
+  //show the right answer regardless of what the user chooses
+  showCorrectAnswer: function(){
+		$(".answer:contains("+this.questions[this.x].rightAnswer+")").css("background-color", "#6fff43");
+  },
+
+  //define what happens when they choose the correct answer
+  correctAnswer: function(){
+  	console.log("correct");
+  	$("#question-text").html("Correct!");
+  	this.correct++;  	
+  },
+
+  //define what happens when they choose the wrong answer
+  wrongAnswer: function(){
+		console.log("wrong");
+  	$("#question-text").html("Wrong!");
+  	this.wrong++;
   },
 
   //something that increments the index of whichever question is in play
@@ -67,8 +94,30 @@ var game = {
 
 }
 
-$("#submit").click(function(){
+//what happens when you click the question bar
+$("#question-text").click(function(){
   game.askQuestions();
   game.generateAnswers();
+  game.showTimer();
   game.xCounter();
 })
+
+//what happens when you click any answer
+$(".answer").click(function(){
+  game.xCounter();
+	game.showCorrectAnswer();
+	if($(this).html() == game.questions[game.x].rightAnswer){
+		game.correctAnswer();
+	} else{
+		game.wrongAnswer();
+	}
+});
+
+var time = 30;
+
+function createTimer(){
+	setTimeout(function(){time--}, 1000);
+	$("#timer-count").html(time);
+}
+
+createTimer();
