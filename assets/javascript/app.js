@@ -1,5 +1,6 @@
-console.log("linked");
+
 //this time, let's try one big object
+
 var game = {
 
   //questions with answers
@@ -37,44 +38,63 @@ var game = {
 
   ],
 
+  //index of whichever question is in play
   x: 0,
 
+  //correct guesses
   correct: 0,
 
+  //wrong guesses
   wrong: 0,
 
   //something that populates the html with the question
-  askQuestions: function(){
-    var questionInPlay = this.questions[this.x].questionText;
-    console.log(questionInPlay);
+  askQuestions: function(e){
+  	clearTimeout(timer);
+    var questionInPlay = this.questions[e].questionText;
     $("#question-text").html(questionInPlay);
+    this.generateAnswers(e);
+    time = 10;
+		$("#timer-count").html(time);
+    createTimer();
+		if(time <= 0){
+			this.wrongAnswer();
+		}
   },
 
   //something that populates the html with the answers
-  generateAnswers: function(){
-    var answerArray = this.questions[this.x].answers;
-    console.log(answerArray);
+  generateAnswers: function(e){
+    var answerArray = this.questions[e].answers;
     for (i = 0; i < answerArray.length; i++){
       $("#answer"+i).html(answerArray[i]);
     }
     $(".answer").css("background-color", "inherit");
   },
 
-  showTimer: function(){
-	  createTimer();
+  //ask the first question and show the timer
+  initializeGame: function(){
+  	this.askQuestions(0);
   	$("#timer").css("display", "block");
   },
 
   //show the right answer regardless of what the user chooses
   showCorrectAnswer: function(){
 		$(".answer:contains("+this.questions[this.x].rightAnswer+")").css("background-color", "#6fff43");
+		clearTimeout(timer);
+		time = 3;
+		$("#timer-count").html(time);
+		createTimer();
+		if(time <= 0){
+			this.askQuestions(this.x);
+		}
   },
 
   //define what happens when they choose the correct answer
   correctAnswer: function(){
   	console.log("correct");
   	$("#question-text").html("Correct!");
-  	this.correct++;  	
+  	this.correct++;
+	  this.xCounter();
+		this.showCorrectAnswer();
   },
 
   //define what happens when they choose the wrong answer
@@ -82,6 +102,8 @@ var game = {
 		console.log("wrong");
   	$("#question-text").html("Wrong!");
   	this.wrong++;
+	  this.xCounter();
+		this.showCorrectAnswer();
   },
 
   //something that increments the index of whichever question is in play
@@ -97,30 +119,26 @@ var game = {
 
 //what happens when you click the question bar
 $("#question-text").click(function(){
-  game.askQuestions();
-  game.generateAnswers();
-  game.showTimer();
-  game.xCounter();
+  game.initializeGame();
 })
 
 //what happens when you click any answer
 $(".answer").click(function(){
-  game.xCounter();
-	game.showCorrectAnswer();
 	if($(this).html() == game.questions[game.x].rightAnswer){
 		game.correctAnswer();
-	} else{
+	} else {
 		game.wrongAnswer();
 	}
 });
 
-var time = 30;
+var time;
+
+var timer;
 
 function createTimer(){
-	setTimeout(function(){
+	timer = setTimeout(function(){
 		time--;
 		$("#timer-count").html(time);
 		createTimer();
 	}, 1000);
 }
-
