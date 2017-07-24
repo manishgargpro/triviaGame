@@ -2,7 +2,7 @@
 
 var game = {
 
-	//questions with answers
+	//questions with answers, I apologize in advance if I forget to replace these placeholders with actual questions and answers, my original plan was to use an api I found online that generates questions and answers for you, but I ran out of time
 	questions: [
 		question1 = {
 			questionText: "What is your name?",
@@ -70,7 +70,7 @@ var game = {
 		);
 	},
 
-	//ask the first question and show the timer
+	//ask the first question and show the timer, there is an edge case where a user can click this any time to restart the game, and doing so will reset their stats back to 0, so it kinda ends up being a feature as well
 	initializeGame: function() {
 		this.correct = 0;
 		this.wrong = 0;
@@ -106,6 +106,7 @@ var game = {
 		this.showCorrectAnswer();
 	},
 
+	//this shows up after the final question
 	endGame: function() {
 		clearTimeout(timer);
 		$("#question-text").html("Game Over");
@@ -122,12 +123,14 @@ var game = {
 
 }
 
+//this is as far as I was able to get in making one big object for my game, I learned a lot about objects in the process, but my timer functions and my click functions needed to exist outside of the object
+
 //what happens when you click the question bar
 $("#question-text").click(function() {
 	game.initializeGame();
 })
 
-//what happens when you click any answer
+//what happens when you click any answer, the bug where a user can click an answer multiple times to rack up points (correct or wrong) still exists, my attempt to get around it is to have only 1 second where the answer is shown
 $(".answer").click(function() {
 	if ($(this).html() == game.questions[game.x].rightAnswer) {
 		game.correctAnswer();
