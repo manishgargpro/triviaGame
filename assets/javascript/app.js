@@ -4,7 +4,7 @@ var game = {
 
 	//questions with answers, I apologize in advance if I forget to replace these placeholders with actual questions and answers, my original plan was to use an api I found online that generates questions and answers for you, but I ran out of time
 	questions: [
-		question1 = {
+		question0 = {
 			questionText: "What is your name?",
 			answers: [
 				"something",
@@ -14,7 +14,7 @@ var game = {
 			],
 			rightAnswer: "not something"
 		},
-		question2 = {
+		question1 = {
 			questionText: "What is your quest?",
 			answers: [
 				"not something",
@@ -24,7 +24,7 @@ var game = {
 			],
 			rightAnswer: "not something"
 		},
-		question3 = {
+		question2 = {
 			questionText: "What is the airspeed velocity of an unlaiden swallow?",
 			answers: [
 				"something",
@@ -99,9 +99,9 @@ var game = {
 	},
 
 	//define what happens when they choose the wrong answer
-	wrongAnswer: function() {
-		console.log("wrong");
-		$("#question-text").html("Wrong!");
+	wrongAnswer: function(message) {
+		console.log(message);
+		$("#question-text").html(message);
 		this.wrong++;
 		this.showCorrectAnswer();
 	},
@@ -109,10 +109,10 @@ var game = {
 	//this shows up after the final question
 	endGame: function() {
 		clearTimeout(timer);
-		$("#question-text").html("Game Over");
-		$("#answer0").html("Correct: " + this.correct);
-		$("#answer1").html("Wrong or didn't answer: " + this.wrong);
-		$("#answer2").html("");
+		$("#question-text").html("Click me to start over!");
+		$("#answer0").html("Game Over");
+		$("#answer1").html("Correct: " + this.correct);
+		$("#answer2").html("Wrong or didn't answer: " + this.wrong);
 		$("#answer3").html("");
 	},
 
@@ -135,7 +135,7 @@ $(".answer").click(function() {
 	if ($(this).html() == game.questions[game.x].rightAnswer) {
 		game.correctAnswer();
 	} else {
-		game.wrongAnswer();
+		game.wrongAnswer("Wrong!");
 	}
 });
 
@@ -155,7 +155,7 @@ function createTimer1() {
 		$("#timer-count").html(time);
 		createTimer1();
 		if (time <= 0) {
-			game.wrongAnswer();
+			game.wrongAnswer("Time's up!");
 		}
 	}, 1000);
 }
