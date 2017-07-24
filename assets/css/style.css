@@ -1,8 +1,7 @@
-
-#timer{
+#timer {
 	display: none;
 }
 
-.answer:hover{
+.answer:hover {
 	background-color: #acf9ff;
 }
