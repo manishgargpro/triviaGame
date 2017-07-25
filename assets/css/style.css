@@ -2,6 +2,15 @@
 	display: none;
 }
 
+.jumbotron{
+	background-color: #FFFF33;
+	color: #0000CC;
+}
+
+body{
+	background-image: url("../images/spongebob.jpg");
+}
+
 .answer:hover {
 	background-color: #acf9ff;
 }
