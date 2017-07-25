@@ -5,34 +5,54 @@ var game = {
 	//questions with answers, I apologize in advance if I forget to replace these placeholders with actual questions and answers, my original plan was to use an api I found online that generates questions and answers for you, but I ran out of time
 	questions: [
 		question0 = {
-			questionText: "What is your name?",
+			questionText: "Are you ok Patrick?",
 			answers: [
-				"something",
-				"something else",
-				"not something",
-				"something else else",
+				"Yes, I'm fine.",
+				"No I'm not fine!",
+				"Finland!",
+				"Where's the leak, ma'am?",
 			],
-			rightAnswer: "not something"
+			rightAnswer: "Finland!"
 		},
 		question1 = {
-			questionText: "What is your quest?",
+			questionText: "Meatball meatball, spaghetti underneath, ravioli ravioli, _____.",
 			answers: [
-				"not something",
-				"something",
-				"something else",
-				"something else else",
+				"Great barrier reef",
+				"But I did everything you said!",
+				"HA, HA, HA, *robot sounds*",
+				"Give me the formuloli",
 			],
-			rightAnswer: "not something"
+			rightAnswer: "Great barrier reef"
 		},
 		question2 = {
-			questionText: "What is the airspeed velocity of an unlaiden swallow?",
+			questionText: "The Krusty Krab pizza is the pizza for",
 			answers: [
-				"something",
-				"something else",
-				"something else else",
-				"not something",
+				"Anyone",
+				"No one",
+				"Paying customers only",
+				"You and me",
 			],
-			rightAnswer: "not something"
+			rightAnswer: "You and me"
+		},
+		question3 = {
+			questionText: "Sandy, you don't know what you're up against! We're talking about ______!",
+			answers: [
+				"a giant squid",
+				"an Alaskan bull worm",
+				"Patrick's belly button",
+				"Pearl",
+			],
+			rightAnswer: "Alaskan bull worm"
+		},
+		question4 = {
+			questionText: "Is ___ an instrument?",
+			answers: [
+				"mayonnaise",
+				"horseradish",
+				"a piano",
+				"my belly button",
+			],
+			rightAnswer: "mayonnaise"
 		}
 
 	],
